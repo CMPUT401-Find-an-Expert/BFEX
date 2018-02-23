@@ -46,18 +46,18 @@ class Grant(DocType):
     class Meta:
         index = "grants"
 
+
 class Publication(DocType):
     publication_id = Integer(required=True)
     authors = Integer(required=True)
     title = Text()
-    text = Text()
-    date = Text()
-    data_source = Text()
-    formated_name = Text()
-    meta_data = Text()
-
+    type = Text()
+    url = Text()
+    data = Text()
+    
     class Meta:
         index = "publications"
+
 
 def initialize_models():
     """Initializes the mappings of all models in ElasticSearch. A connection should have already been established."""
