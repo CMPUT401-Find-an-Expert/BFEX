@@ -18,7 +18,11 @@ class FacultyAPI(Resource):
     def get(self, faculty_id):
         """ HTTP Get for the faculty resource.
 
-        Currently returns an HTML page, but should instead return the Faculty object as JSON
+        Currently returns an HTML page, but should instead return the Faculty object as JSON.
+
+        :param faculty_id: The id as is in elasticsearch. This id is defined by the forum data dump.
+        :return:HTTP 404 if the given ID does not exist.
+                HTTP 200 if the id exists and the GET operation succeeds.
         """
         faculty = Faculty.safe_get(faculty_id)
 
@@ -29,8 +33,19 @@ class FacultyAPI(Resource):
 
 
 class FacultyListAPI(Resource):
+    """Methods for performing some operations on lists of Faculty members."""
 
     def post(self):
+        """HTTP Post for the faculty list resource.
+
+        Ingests a lists of faculty members, and saves the information into elasticsearch. Currently does not do any
+        checks if there already exists a faculty member with the same id that will be overridden.
+        TODO: Decide if this should check for existing faculty and return which faculty were not inserted, and add PUT.
+
+        :return:HTTP 400 if the request is not JSON.
+                HTTP 413 if the given JSON is more than 16MB in size or there was an error ingesting the given data.
+                HTTP 200 if the ingestion succeeded.
+        """
         if not request.is_json:
             abort(400)
 

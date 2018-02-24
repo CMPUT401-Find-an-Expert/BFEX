@@ -3,8 +3,20 @@ from bfex.common.exceptions import WorkflowTaskArgumentException
 
 
 class Workflow(object):
+    """A workflow is a series of tasks to be run in sequence.
+
+    Each task is verified prior to running, by calling the is_requirement_satisfied method of the task. It will only
+    be run if that method returns true. The result of each step is stored in last_result, and can be accessed if needed.
+    """
 
     def __init__(self, tasks, init_data=None):
+        """Creates a new workflow with the passed in series of tasks.
+
+        :param list tasks: A list of Task class references to be instantiated and run.
+        :param init_data: Any initialization data that should be fed into the first task.
+        :exception ValueError: If the tasks list is empty
+        :exception TypeError: If any of the class references in tasks are not a subclass of Task
+        """
         self.tasks = tasks
         self.steps = len(tasks)
         self.current_step = 0
@@ -20,9 +32,19 @@ class Workflow(object):
                 raise TypeError("A workflow must be made up of only of references to Task classes.")
 
     def get_current_task(self):
+        """Returns the next task to be run."""
         return self.tasks[self.current_step]
 
+    def get_last_result(self):
+        """Returns the result of the previously ran task."""
+        return self.last_result
+
     def run_next(self):
+        """Runs the next task in the workflow.
+
+        :exception WorkflowTaskArgumentException: If a task receives unsatisfactory data.
+        :returns False if there are no more steps to be run, True if the step succeeds.
+        """
         if self.current_step >= self.steps:
             return False                        # ? This doesn't seem like a great approach to tell the workflow to stop
 
@@ -38,6 +60,10 @@ class Workflow(object):
         return True
 
     def run(self):
+        """Runs the entire workflow, from the current step to finish.
+
+        :returns The result of the final task.
+        """
         is_finished = False
 
         while not is_finished:
@@ -53,7 +79,7 @@ if __name__ == "__main__":
 
     tasks = [FacultyPageScrape, UpdateFacultyFromScrape]
 
-    workflow_manager = Workflow(tasks, "William.Allison")
+    workflow_manager = Workflow(tasks, "Stan.Boutin")
 
     result = workflow_manager.run()
 

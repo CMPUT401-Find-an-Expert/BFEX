@@ -4,7 +4,11 @@ from bfex.models import *
 
 
 class FacultySchema(Schema):
-    """Marshmallow schema used for validating Faculty JSON objects."""
+    """Marshmallow schema used for validating Faculty JSON objects.
+
+    A marshmallow schema allows us to easily extract information from JSON input, while at the same time, performing
+    basic validation of that data.
+    """
     faculty_id = fields.Integer(load_from="id", required=True)
     name = fields.String(required=True)
     email = fields.Email(required=True)

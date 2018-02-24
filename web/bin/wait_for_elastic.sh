@@ -1,24 +1,5 @@
 #!/bin/bash
-# RunCommand() {
-#   typeset cmnd="$*"
-#   typeset ret_code
-
-#   echo cmnd=$cmnd
-#   eval $cmnd
-#   ret_code=$?
-#   return ret_code
-# }
-
-# command="curl -XGET localhost:9200"
-# until [safeRunCommand "$command" -eq 0]; do
-#     echo "Elastic search still starting..."
-#     sleep 1
-# done
-
-# eval 
-
-# wait-for-postgres.sh
-
+# Script that will wait for an host to be active before executing the given command.
 set -e
 
 host="$1"

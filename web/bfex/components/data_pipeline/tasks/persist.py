@@ -5,13 +5,18 @@ from bfex.common.exceptions import WorkflowException
 
 
 class UpdateFacultyFromScrape(Task):
-    """
-    Updates a Faculty Members data in elastic, given a scrape of that faculty members directory page.
-    """
+    """Updates a Faculty Members data in elastic, given a scrape of that faculty members directory page."""
+
     def __init__(self):
         self.task_name = "Update Faculty From Scrape"
 
     def is_requirement_satisfied(self, data):
+        """Verifies that the data is acceptable for submitting into elasticsearch.
+
+        :param data: Expected to be a tuple of the form <str, Scrapp>, containing the faculty members name as found in
+                    elasticsearch, and the Scrapp produced by scraping their page.
+        :returns True if the data is of the form above, else False.
+        """
         satisfied = True
 
         if (not isinstance(data, tuple) or
@@ -22,6 +27,11 @@ class UpdateFacultyFromScrape(Task):
         return satisfied
 
     def run(self, data):
+        """Updates a Faculty members information in Elasticsearch, based on the result of a scrape.
+
+        :param data: tuple of form <str, Scrapp>
+        :return: The updated instance of a Faculty model.
+        """
         faculty_name = data[0]
         scrapp = data[1]
 

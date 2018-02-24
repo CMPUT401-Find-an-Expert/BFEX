@@ -3,8 +3,14 @@ from elasticsearch import NotFoundError
 
 
 class Model(object):
+    """Basic class that provides utility methods to our elasticsearch models."""
+
     @classmethod
     def safe_get(cls, id):
+        """Performs a safe get of an elasticsearch object by id, avoiding 404 exception from elasticsearch.
+
+        :param id: The id of the object in elastic to get.
+        :return The object if found, otherwise None."""
         try:
             obj = cls.get(id=id)
         except NotFoundError:
@@ -13,6 +19,11 @@ class Model(object):
 
 
 class Faculty(DocType, Model):
+    """Definition of the basic Faculty doctype.
+
+    Contains any information related to a Faculty member instance pulled from the Forum data dump, or page scrapes.
+    Data is saved in the elaticsearch index faculty.
+    """
     faculty_id = Integer(required=True)
     name = Text(required=True)
     email = Text(required=True)
@@ -33,6 +44,11 @@ class Faculty(DocType, Model):
 
 
 class Grant(DocType):
+    """Definition of the basic Grant doctype.
+
+    Contains any information related to a Grant instance pulled from the Forum data dump, or page scrapes.
+    Data is saved in the elaticsearch index grants.
+    """
     faculty_id = Integer(required=True)
     grant_id = Integer()                    # grant_id is the provided id in the json data dump. May not be useful.
 
@@ -48,6 +64,11 @@ class Grant(DocType):
 
 
 class Publication(DocType):
+    """Definition of the basic Publication doctype.
+
+    Contains any information related to a Publication instance pulled from the Forum data dump, or page scrapes.
+    Data is saved in the elaticsearch index grants.
+    """
     publication_id = Integer(required=True)
     authors = Integer(required=True)
     title = Text()
@@ -60,7 +81,9 @@ class Publication(DocType):
 
 
 def initialize_models():
-    """Initializes the mappings of all models in ElasticSearch. A connection should have already been established."""
+    """Initializes the mappings of all models in ElasticSearch. Expects that a connection to elastic has already been
+    initialized.
+    """
     Faculty.init()
     Grant.init()
     Publication.init()
