@@ -13,13 +13,13 @@ class KeyGenerator:
         """ Iterates through each registered approach and returns their result"""
         result = {}
         for id in self.approaches.keys():
-            result[id] = self.approaches[id](scrapp)
+            result[id] = self.approaches[id].generate_keywords(scrapp)
         return result
 
-    def register_approach(self, callback, approachId):
-        """ Register approach callback """
-        self.approaches[approachId] = callback
+    def register_approach(self, obj, approachId):
+        """ Register approach obj """
+        self.approaches[approachId] = obj
 
     def deregister_approach(self, approachId):
-        """ Removes approach callback """
+        """ Removes approach obj """
         del self.approaches[approachId]
