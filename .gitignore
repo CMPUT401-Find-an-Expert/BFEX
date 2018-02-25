@@ -108,4 +108,4 @@ ENV/
 .DS_Store
 
 # Pytest
-.pytest_cache
+**/.pytest_cache

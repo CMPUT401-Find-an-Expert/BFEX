@@ -52,7 +52,6 @@ class UpdateFacultyFromScrape(Task):
                 faculty.research_id = scrapp.meta_data["researchid_link"]
 
             faculty.save()
-            print('saved',faculty_name)
 
         return faculty
 

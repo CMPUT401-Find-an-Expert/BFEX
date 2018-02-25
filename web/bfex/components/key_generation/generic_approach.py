@@ -1,5 +1,5 @@
 from bfex.models import *
-from key_generation_approach import KeyGenerationApproach
+from .key_generation_approach import KeyGenerationApproach
 from nltk.corpus import stopwords
 from nltk.tokenize import wordpunct_tokenize
 from collections import Counter
@@ -13,7 +13,7 @@ class GenericApproach(KeyGenerationApproach):
         words = wordpunct_tokenize(scrapp.text)
         wordsFiltered = [] 
         for w in words:
-            if w not in stopWords:
+            if w not in stop_words:
                 wordsFiltered.append(w)
         word_counts = Counter(wordsFiltered)
         return word_counts

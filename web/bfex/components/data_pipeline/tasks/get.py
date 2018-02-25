@@ -28,9 +28,3 @@ if __name__ == "__main__":
     from elasticsearch_dsl import connections
     connections.create_connection()
     Faculty.init()
-
-    # search = Faculty.search()
-    # results = search.query('match', name="Neil.Adames")
-
-    # for faculty in results:
-    #     print(faculty)
