@@ -49,7 +49,7 @@ class Workflow(object):
             return False                        # ? This doesn't seem like a great approach to tell the workflow to stop
 
         current_task = self.get_current_task()()    # Fetch the class of the next task, and instantiate it
-        # print(self.last_result)
+        
         if current_task.is_requirement_satisfied(self.last_result):
             result = current_task.run(self.last_result)
             self.last_result = result

@@ -27,3 +27,4 @@ class GetFacultyFromElasticSearch(Task):
 if __name__ == "__main__":
     from elasticsearch_dsl import connections
     connections.create_connection()
+    Faculty.init()
