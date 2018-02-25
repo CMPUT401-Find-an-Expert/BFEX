@@ -3,6 +3,7 @@ from bfex.components.scraper.scraper_type import ScraperType
 from bfex.models import Faculty
 from bfex.common.utils import URLs, FacultyNames
 from bfex.components.data_pipeline.tasks.task import Task
+from bfex.components.key_generation.rake_approach import *
 
 
 class FacultyPageScrape(Task):
@@ -43,15 +44,20 @@ class FacultyPageScrape(Task):
 
         scraper = ScraperFactory.create_scraper(faculty_directory_url, ScraperType.PROFILE)
         scrapp = scraper.get_scrapps()[0]
+        keywords= RakeApproach()
+        print(keywords.apporach_id)
+        print(keywords.generate_keywords(scrapp))
 
+
+        
         return faculty_name, scrapp
 
 
 if __name__ == "__main__":
     task = FacultyPageScrape()
 
-    if task.is_requirement_satisfied("JNelson.Amaral"):
-        task.run("JNelson.Amaral")
+    if task.is_requirement_satisfied("William.Allison"):
+        task.run("William.Allison")
 
 
 

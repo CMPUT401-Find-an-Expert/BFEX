@@ -42,6 +42,12 @@ class Faculty(DocType, Model):
     def __str__(self):
         return "<Faculty ID:{} Name: {} Email: {}".format(self.faculty_id, self.name, self.email)
 
+class Keywords(DocType,Model):
+    id = Integer(required=True)
+    rake_keywords = Text()
+
+    class Mata: 
+        index = "keywords"
 
 class Grant(DocType):
     """Definition of the basic Grant doctype.
