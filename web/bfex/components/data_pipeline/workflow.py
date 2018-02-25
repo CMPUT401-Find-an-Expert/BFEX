@@ -49,13 +49,13 @@ class Workflow(object):
             return False                        # ? This doesn't seem like a great approach to tell the workflow to stop
 
         current_task = self.get_current_task()()    # Fetch the class of the next task, and instantiate it
-
+        # print(self.last_result)
         if current_task.is_requirement_satisfied(self.last_result):
             result = current_task.run(self.last_result)
             self.last_result = result
             self.current_step += 1
-        else:
-            raise WorkflowTaskArgumentException("{} received an unsatisfactory argument - {}")
+        #else:
+            #raise WorkflowTaskArgumentException("{} received an unsatisfactory argument - {}")
 
         return True
 
@@ -73,14 +73,14 @@ class Workflow(object):
 
 
 if __name__ == "__main__":
-    from bfex.components.data_pipeline.tasks import FacultyPageScrape, UpdateFacultyFromScrape
+    from bfex.components.data_pipeline.tasks import FacultyPageScrape, UpdateFacultyFromScrape, GetFacultyFromElasticSearch
     from elasticsearch_dsl import connections
     connections.create_connection()
 
-    tasks = [FacultyPageScrape, UpdateFacultyFromScrape]
-
+    tasks = [GetFacultyFromElasticSearch,FacultyPageScrape,UpdateFacultyFromScrape]
     workflow_manager = Workflow(tasks, "Stan.Boutin")
+    # workflow_manager = Workflow(tasks, "thing")
 
     result = workflow_manager.run()
 
-    print(result)
+    print('result',result)
