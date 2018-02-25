@@ -20,6 +20,4 @@ class ProfileScraper(Scraper):
                 # not all 'a' tags have the links we want
                 continue
         scrapps.append(scrapp)
-        print("here")
-        print("scrapps", scrapps)
         return scrapps

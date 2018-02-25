@@ -13,7 +13,6 @@ class ScraperFactory(object):
         if type == ScraperType.RESEARCHID:
             scraper = ResearchIdScraper(url, type)
         if type == ScraperType.PROFILE:
-            print("thing")
             scraper = ProfileScraper(url, type)
 
         return scraper

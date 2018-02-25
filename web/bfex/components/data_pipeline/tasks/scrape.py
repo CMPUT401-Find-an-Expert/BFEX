@@ -49,6 +49,7 @@ class FacultyPageScrape(Task):
             scrapp = scraper.get_scrapps()[0]
             tuple = (faculty_name, scrapp)
             tuplelist.append(tuple)
+            
         return tuplelist
 
 

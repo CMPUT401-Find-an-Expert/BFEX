@@ -18,6 +18,7 @@ class UpdateFacultyFromScrape(Task):
         :returns True if the data is of the form above, else False.
         """
         satisfied = True
+        
         for faculty in data:
             if (not isinstance(faculty, tuple) or
                     not isinstance(faculty[0], str) or
