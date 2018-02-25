@@ -1,5 +1,6 @@
 from bfex.components.key_generation.key_generation_approach import KeyGenerationApproach
 from bfex.components.key_generation.RAKE import rake
+from bfex.components.scraper.scrapp import Scrapp
 import io
 
 
@@ -8,15 +9,17 @@ class RakeApproach(KeyGenerationApproach):
         self.description = """ rake """
         self.apporach_id = 2
     
+
+
     def generate_keywords(self, scrapp):
+
         stop_words = "SmartStoplist.txt"
         
         rake_object  = rake.Rake(stop_words,5,3,4)
 
-        text_file = io.open(scrapp, 'r')
-
-        text = text_file.read
-
+        if 'text' in scrapp.meta_data:
+            text = scrapp.meta_data['text']
+            
         keywords_with_score = rake_object.run(text)
 
         keywords = []

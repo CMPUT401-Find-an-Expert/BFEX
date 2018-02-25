@@ -24,7 +24,7 @@ class UpdateFacultyFromScrape(Task):
     def run(self, data):
         faculty_name = data[0]
         scrapp = data[1]
-
+    
         search_results = Faculty.search().query('match', name=faculty_name).execute()
         if len(search_results) > 1:
             # Shouldn't happen, but could.
@@ -37,7 +37,7 @@ class UpdateFacultyFromScrape(Task):
 
         if "researchid_link" in scrapp.meta_data:
             faculty.research_id = scrapp.meta_data["researchid_link"]
-
+    
         faculty.save()
 
         return faculty

@@ -9,7 +9,14 @@ class ProfileScraper(Scraper):
         self.validate_url()
         soup = self.get_content()
         links = soup.find_all("a")
+        table = soup.find_all('div',attrs={"class" : "ph-person-home person-section"})
         scrapp = Scrapp()
+        for tag in table:
+            try:
+                text = tag.text.replace("\n"," ").replace("\r"," ").replace("\xa0"," ")
+                scrapp.add_meta('text',text)
+            except KeyError:
+                continue
         for link in links:
             try:
                 if 'orcid' in link.attrs['href']:
@@ -19,5 +26,6 @@ class ProfileScraper(Scraper):
             except KeyError:
                 # not all 'a' tags have the links we want
                 continue
+    
         scrapps.append(scrapp)
         return scrapps

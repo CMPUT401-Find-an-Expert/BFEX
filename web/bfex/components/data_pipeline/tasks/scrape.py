@@ -36,15 +36,14 @@ class FacultyPageScrape(Task):
 
         scraper = ScraperFactory.create_scraper(faculty_directory_url, ScraperType.PROFILE)
         scrapp = scraper.get_scrapps()[0]
-
         return faculty_name, scrapp
 
 
 if __name__ == "__main__":
     task = FacultyPageScrape()
 
-    if task.is_requirement_satisfied("JNelson.Amaral"):
-        task.run("JNelson.Amaral")
+    if task.is_requirement_satisfied("William.Allison"):
+        task.run("William.Allison")
 
 
 
