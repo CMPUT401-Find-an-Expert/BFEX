@@ -19,16 +19,8 @@ class FacultyPageScrape(Task):
         :param data: str or Faculty instance.
         :return: True if the name is a valid one, else False
         """
-        data = data[0]
 
-        # Should this return the data as it is expected for running the task?
-        if isinstance(data, str):
-            # Apply any additional checks or validations that need to occur on the data
-            return FacultyNames.validate_name(data)
-
-        if isinstance(data, Faculty):
-            print(FacultyNames.validate_name(data.name))
-            return FacultyNames.validate_name(data.name)
+        return isinstance(data, list)
 
     def run(self, data):
         """Performs a scraping of a faculty members directory page.
@@ -49,7 +41,8 @@ class FacultyPageScrape(Task):
             scrapp = scraper.get_scrapps()[0]
             tuple = (faculty_name, scrapp)
             tuplelist.append(tuple)
-            
+            print(tuple)
+
         return tuplelist
 
 
