@@ -12,10 +12,8 @@ class RakeApproach(KeyGenerationApproach):
 
 
     def generate_keywords(self, scrapp):
-
-        stop_words = "SmartStoplist.txt"
         
-        rake_object  = rake.Rake(stop_words,5,3,4)
+        rake_object  = rake.Rake(5,3,2)
 
         if 'text' in scrapp.meta_data:
             text = scrapp.meta_data['text']
