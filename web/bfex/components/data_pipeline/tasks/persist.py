@@ -55,12 +55,6 @@ class UpdateFacultyFromScrape(Task):
 
             if "text" in scrapp.meta_data:
                  faculty.text = scrapp.meta_data["text"]
-                 keygen = RakeApproach()
-
-                 rake_keyword = keygen.generate_keywords(faculty.text)
-
-                 faculty.rake_keywords = rake_keyword
-
 
             faculty.save()
 

@@ -28,9 +28,13 @@ class UpdateKeywordsFromScrape(Task):
 
 
     def run(self,data):
+        """ Updates keywords of all profs
+
+        :param data is a faculty object
+        :return: last faculty member handled
+        """
         no_text_count = 0
         for faculty in data:
-            print(faculty.name)
             faculty_name = faculty.name
     
             search_results = Faculty.search().query('match', name=faculty_name).execute()
