@@ -37,6 +37,7 @@ class Faculty(DocType, Model):
     user_keywords = Text()
     text = Text()
     rake_keywords = Text()
+    generic_keywords = Text()
 
     class Meta:
         index = "faculty"
@@ -47,6 +48,7 @@ class Faculty(DocType, Model):
 class Keywords(DocType,Model):
     faculty_id = Integer(required=True)
     rake_keywords = Text()
+    generic_keywords = Text()
 
     class Meta: 
         index = "keywords"
