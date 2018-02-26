@@ -18,11 +18,6 @@ class GenericApproach(KeyGenerationApproach):
 
     def generate_keywords(self, scrapp):
         """Tokenizes, remove stopwords, and counts word frequency"""
-        stop_words = set(stopwords.words('english'))
         words = wordpunct_tokenize(scrapp.text)
-        wordsFiltered = []
-        for w in words:
-            if w not in stop_words:
-                wordsFiltered.append(w)
-        word_counts = Counter(wordsFiltered)
+        word_counts = Counter(words)
         return word_counts

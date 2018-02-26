@@ -6,7 +6,6 @@ from bfex.components.scraper.scrapp import *
 
 class TestKeygen(object):
     def test_generic_approach(self):
-        pass
         ga = GenericApproach(1,'generic')
         scrapp = Scrapp()
         scrapp.text = "The scraper is responsible from gathering useful information from our webpage data sources. It's goal is to extract any useful text, a title, dates and other meta-data (such as easily identifiable key words)from the page. It will then return that as a 'Scrapp'. A scrapp is a container for the results of a single page scraping"
@@ -14,7 +13,6 @@ class TestKeygen(object):
         print('generic',res)
         assert len(res) != 0
     def test_generator(self):
-        pass
         kg = KeyGenerator()
         scrapp = Scrapp()
         scrapp.text = "The scraper is responsible from gathering useful information from our webpage data sources. It's goal is to extract any useful text, a title, dates and other meta-data (such as easily identifiable key words)from the page. It will then return that as a 'Scrapp'. A scrapp is a container for the results of a single page scraping"
