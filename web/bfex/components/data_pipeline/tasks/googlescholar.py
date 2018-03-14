@@ -33,22 +33,22 @@ class GoogleScholarPageScrape(Task):
 
         """Performs a scraping of a faculty members GoogleScholar page.
         :param data is a faculty object
-        :return: last faculty member handled
+        :return: list of faculty members
         """
         
         no_text_count = 0
-        for faculty in data:
-            faculty_name = faculty.name
+        for faculty_tuple in data:
+            faculty_name = faculty_tuple[0]
     
             search_results = Faculty.search().query('match', name=faculty_name).execute()
             if len(search_results) > 1:
                 # Shouldn't happen, but could.
                 raise WorkflowException("Professor id is ambiguous during search ... More than 1 result")
 
+            faculty = search_results[0]
             search_dup = Document.search().query('match', faculty_id=faculty.faculty_id).query("match", source="GoogleScholar")
             search_dup.delete()
 
-            faculty = search_results[0]
             if faculty.google_scholar is not None and "http" in faculty.google_scholar:
                 scraper = ScraperFactory.create_scraper(faculty.google_scholar, ScraperType.GOOGLESCHOLAR)
                 scrapps = scraper.get_scrapps()
@@ -61,7 +61,7 @@ class GoogleScholarPageScrape(Task):
             else:
                 no_text_count += 1
         print("NO TEXT COUNT = ", no_text_count)
-        return faculty
+        return data
 
 
 if __name__ == "__main__":
