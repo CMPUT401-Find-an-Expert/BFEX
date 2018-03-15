@@ -1,7 +1,7 @@
 import os
 
 from elasticsearch_dsl import connections
-from bfex.celery import celery_instance as celery
+from bfex._celery import celery_instance as celery
 from celery.signals import worker_process_init
 
 
