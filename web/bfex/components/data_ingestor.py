@@ -8,7 +8,7 @@ from bfex.tasks import run_workflow
 from bfex.components.data_pipeline.workflow import Workflow
 
 class DataIngester(object):
-    INITIAL_PAGE_SCRAPE = [GetFacultyFromElasticSearch, FacultyPageScrape, UpdateFacultyFromScrape]
+    INITIAL_PAGE_SCRAPE = [FacultyPageScrape, UpdateFacultyFromScrape]
 
     @staticmethod
     def create_faculty(json_data, write=True):
@@ -42,10 +42,20 @@ class DataIngester(object):
             count += 1
             DataIngester.create_faculty(faculty_member, write)
 
-        # TODO: This should be running in the create_faculty, once we fix the workflow.
-        workflow = Workflow(DataIngester.INITIAL_PAGE_SCRAPE)
-        run_workflow.apply_async((workflow,), countdown=5)
-        print("Ingested {} faculty members".format(count))
+        search = Faculty.search()
+        allFaculty = [faculty for faculty in search.scan()]
+        for faculty in allFaculty:
+
+            if isinstance(faculty, str):
+                faculty_name = faculty
+            else:
+                faculty_name = faculty.name
+            print(faculty)
+
+            # TODO: This should be running in the create_faculty, once we fix the workflow.
+            workflow = Workflow(DataIngester.INITIAL_PAGE_SCRAPE, faculty_name)
+            run_workflow.apply_async((workflow,), countdown=5)
+            print("Ingested {} faculty members".format(count))
 
     @staticmethod
     def create_grant(json_data, write=True):
