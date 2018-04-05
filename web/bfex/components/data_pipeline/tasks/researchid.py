@@ -64,7 +64,7 @@ class ResearchIdPageScrape(Task):
 
             keywords = Keywords()
             keywords.faculty_id = faculty.faculty_id
-            keywords.datasource = "freebies"
+            keywords.datasource = "user_keywords"
             keywords.approach_id  = "4"
 
             try:
