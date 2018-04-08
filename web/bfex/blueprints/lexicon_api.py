@@ -39,9 +39,7 @@ class LexiconAPI(Resource):
     def post(self):
         """HTTP Post for the lexicon resource.
 
-        Ingests a lists of lexicon words, and saves the information into elasticsearch. Currently does not do any
-        checks if there already exists a lexicon word with the same id that will be overridden.
-        TODO: Decide if this should check for existing lexicon and return which lexicon were not inserted, and add PUT.
+        Ingests a lists of lexicon words, and saves the information into elasticsearch. Currently overrides current lexicon list.
 
         :return:HTTP 400 if the request is not JSON.
                 HTTP 413 if the given JSON is more than 16MB in size or there was an error ingesting the given data.
@@ -53,6 +51,7 @@ class LexiconAPI(Resource):
         json_data = request.get_json()
 
         try:
+            Lexicon.search().delete()
             DataIngester.bulk_create_lexicon(json_data["data"])
         except DataIngestionException as e:
             print(e)
