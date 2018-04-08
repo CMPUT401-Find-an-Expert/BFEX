@@ -13,27 +13,6 @@ MB = 1024 * 1024
 lexicon_bp = Blueprint("lexicon_api", __name__)
 api = Api(lexicon_bp)
 
-
-class LexiconAPI(Resource):
-    """Contains methods for performing basic CRUD operations on Lexicon members"""
-
-    def get(self, lexicon_id):
-        """ HTTP Get for the lexicon resource.
-
-        Currently returns an HTML page, but should instead return the Lexicon object as JSON.
-
-        :param lexicon_id: The id as is in elasticsearch. This id is defined by the forum data dump.
-        :return:HTTP 404 if the given ID does not exist.
-                HTTP 200 if the id exists and the GET operation succeeds.
-        """
-        lexicon = Lexicon.safe_get(lexicon_id)
-
-        if lexicon is None:
-            abort(404)
-
-        return make_response(render_template("lexicon.html", lexicon=lexicon), 200, {'content-type': 'text/html'})
-
-
 class LexiconListAPI(Resource):
     """Methods for performing some operations on lists of Lexicon members."""
 
@@ -82,6 +61,5 @@ class LexiconListAPI(Resource):
         return 200
 
 
-api.add_resource(LexiconAPI, '/lexicon/<int:lexicon_id>')
 api.add_resource(LexiconListAPI, '/lexicon')
 
