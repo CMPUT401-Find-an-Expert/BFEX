@@ -13,13 +13,13 @@ MB = 1024 * 1024
 lexicon_bp = Blueprint("lexicon_api", __name__)
 api = Api(lexicon_bp)
 
-class LexiconListAPI(Resource):
-    """Methods for performing some operations on lists of Lexicon members."""
+class LexiconAPI(Resource):
+    """Methods for performing some operations on Lexicon words."""
 
     def get(self):
-        """HTTP Get for the lexicon list resource.
+        """HTTP Get for the lexicon resource.
 
-        Returns a list of lexicon members from elasticsearch.
+        Returns lexicon words from elasticsearch.
         :param page: URL Parameter for the page to fetch. Default - 0.
         :param results: URL Parameter for the number of results to return per page. Default - 20.
         :return:
@@ -37,10 +37,10 @@ class LexiconListAPI(Resource):
         }
 
     def post(self):
-        """HTTP Post for the lexicon list resource.
+        """HTTP Post for the lexicon resource.
 
-        Ingests a lists of lexicon members, and saves the information into elasticsearch. Currently does not do any
-        checks if there already exists a lexicon member with the same id that will be overridden.
+        Ingests a lists of lexicon words, and saves the information into elasticsearch. Currently does not do any
+        checks if there already exists a lexicon word with the same id that will be overridden.
         TODO: Decide if this should check for existing lexicon and return which lexicon were not inserted, and add PUT.
 
         :return:HTTP 400 if the request is not JSON.
@@ -61,5 +61,5 @@ class LexiconListAPI(Resource):
         return 200
 
 
-api.add_resource(LexiconListAPI, '/lexicon')
+api.add_resource(LexiconAPI, '/lexicon')
 
