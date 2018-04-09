@@ -31,7 +31,7 @@ class QueryBuilder(object):
                 if token[0] == 'KEYWORD':
                     q = Q('match', **{search_field: token[1]})
                 else:
-                    q = Q('match', **{search_field: " ".join(token[1])})
+                    q = Q('match_phrase', **{search_field: " ".join(token[1])})
                 stack.push(q)
 
         return stack.pop()
