@@ -81,7 +81,7 @@ class TfidfApproach(KeyGenerationApproach):
                 search_bigram = " ".join(bigram)
                 df_search = Document.search().query('match_phrase', text=search_bigram).execute()
                 df = len(df_search)
-                if df>0:
+                if df>1:
                     score = 0
                     for word in bigram:
                         if word in scores:
@@ -97,7 +97,7 @@ class TfidfApproach(KeyGenerationApproach):
                 search_trigram = " ".join(trigram)
                 df_search = Document.search().query('match_phrase', text=search_trigram).execute()
                 df = len(df_search)
-                if df>0:
+                if df>1:
                     score = 0
                     for word in trigram:
                         if word in scores:
